@@ -40,14 +40,14 @@
             position: relative;
         }
 
-        /* 2단 레이아웃 (좌측 1, 우측 2 비율) */
+        /* 2단 레이아웃 (좌측 1, 우측 2.2 비율) */
         .layout-grid {
             display: grid;
             grid-template-columns: 1fr 2.2fr;
             gap: 50px;
         }
 
-        /* 공통 섹션 타이틀 */
+        /* 공통 섹션 타이틀 (아이콘 없음) */
         .section-title {
             font-size: 1.1em;
             font-weight: 700;
@@ -55,14 +55,6 @@
             margin-bottom: 15px;
             padding-bottom: 8px;
             border-bottom: 1px solid var(--line-color);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .section-title span.icon {
-            font-size: 1.2em;
-            color: var(--text-sub);
         }
 
         /* ==================== 상단 헤더 ==================== */
@@ -102,13 +94,16 @@
             font-weight: 500;
         }
 
-        /* 이메일, 깃헙, 주소 삭제 후 전화번호만 남김 */
+        /* 전화번호 + 학력 정보 통합 */
         .contact-info {
             display: flex;
+            gap: 15px;
             font-size: 0.95em;
             color: var(--text-main);
+            align-items: center;
         }
         .contact-info span { display: flex; align-items: center; gap: 5px; }
+        .divider { color: #ccc; } /* 전화번호와 학력 사이 구분선 */
 
         .header-right {
             text-align: right;
@@ -117,9 +112,22 @@
             font-style: italic;
         }
 
-        /* ==================== 좌측 컬럼 (관심사, 한마디) ==================== */
+        /* ==================== 좌측 컬럼 (장점, 한마디) ==================== */
         .left-col .section { margin-bottom: 35px; }
         
+        /* 장점 블록(태그) 스타일 */
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag {
+            background-color: #f1f3f5;
+            color: var(--text-main);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.9em;
+            font-weight: 500;
+            border: 1px solid #dee2e6;
+        }
+
+        /* 관심사 리스트 */
         .list-item {
             font-size: 0.95em;
             color: var(--text-sub);
@@ -129,16 +137,7 @@
             align-items: center;
         }
 
-        /* 이름(관심사 칸으로 이동) */
-        .interest-name {
-            font-size: 1.8em;
-            font-weight: bold;
-            color: var(--text-main);
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-        }
-
-        /* 한마디 (왼쪽 세로선 제거됨) */
+        /* 한마디 */
         .quote-box {
             background-color: #f8f9fa;
             padding: 25px 20px;
@@ -148,12 +147,11 @@
             text-align: center;
             border-radius: 8px;
             position: relative;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
         }
         .quote-box::before { content: '“'; font-size: 3em; position: absolute; top: -5px; left: 10px; color: #dee2e6; }
         .quote-box::after { content: '”'; font-size: 3em; position: absolute; bottom: -25px; right: 10px; color: #dee2e6; }
 
-        /* ==================== 우측 컬럼 (학력, 경력, 프로젝트, 자격증) ==================== */
+        /* ==================== 우측 컬럼 (경력, 프로젝트, 자격증) ==================== */
         .right-col .section { margin-bottom: 35px; }
 
         .timeline-item {
@@ -189,7 +187,7 @@
         }
         .timeline-content li { margin-bottom: 3px; }
 
-        /* 자격증 (날짜 삭제됨) */
+        /* 자격증 */
         .cert-item {
             margin-bottom: 12px;
             display: flex;
@@ -236,6 +234,8 @@
             .header-right { text-align: left; }
             .timeline-item { flex-direction: column; }
             .timeline-date { margin-bottom: 5px; }
+            .contact-info { flex-wrap: wrap; gap: 10px; }
+            .divider { display: none; } /* 모바일에서는 구분선 숨김 */
         }
     </style>
 </head>
@@ -247,11 +247,14 @@
             <div class="header-left">
                 <div class="profile-img">👤</div>
                 <div class="name-title">
-                    <!-- 이름은 아래 관심사 칸으로 이동했지만, 큰 제목이 없으면 허전하므로 간단한 슬로건 배치 -->
-                    <h1>Resume</h1> 
+                    <h1>C G</h1> 
                     <p>꾸준히 성장하는, 더 나은 내일을 만드는 사람</p>
+                    
+                    <!-- 전화번호와 학력 통합 -->
                     <div class="contact-info">
                         <span>📞 010-1234-5678</span>
+                        <span class="divider">|</span>
+                        <span>🎓 대전대학교 컴퓨터공학과 (학사)</span>
                     </div>
                 </div>
             </div>
@@ -265,19 +268,31 @@
             
             <!-- === 좌측 컬럼 === -->
             <div class="left-col">
-                <!-- 관심사 칸 (이름 포함) -->
+                
+                <!-- 장점 (아이콘 없음, 블럭 형태) -->
                 <div class="section">
-                    <div class="section-title"><span class="icon">🧭</span> 관심사</div>
-                    <div class="interest-name">C G</div>
+                    <div class="section-title">장점</div>
+                    <div class="tags">
+                        <span class="tag">꾸준함</span>
+                        <span class="tag">문제해결능력</span>
+                        <span class="tag">협업과 소통</span>
+                        <span class="tag">도전정신</span>
+                        <span class="tag">성장 지향성</span>
+                    </div>
+                </div>
+
+                <!-- 관심사 (아이콘 없음) -->
+                <div class="section">
+                    <div class="section-title">관심사</div>
                     <div class="list-item">🎮 게임 (테라리아, Melvor Idle 2)</div>
                     <div class="list-item">📚 독서</div>
                     <div class="list-item">✈️ 여행 (국내 론도트립)</div>
                     <div class="list-item">📈 경제 / 투자</div>
                 </div>
 
-                <!-- 한마디 칸 (좌측으로 이동, 세로선 삭제) -->
+                <!-- 한마디 -->
                 <div class="section">
-                    <div class="section-title"><span class="icon">⭐</span> 한마디</div>
+                    <div class="section-title">한마디</div>
                     <div class="quote-box" id="quote-display">
                         지금까지의 경험을 바탕으로<br>더 나은 내일을 만들기 위해 꾸준히 노력하겠습니다.
                     </div>
@@ -286,20 +301,8 @@
 
             <!-- === 우측 컬럼 === -->
             <div class="right-col">
-                <!-- 학력 (우측으로 이동, 맨 위 배치) -->
                 <div class="section">
-                    <div class="section-title"><span class="icon">🎓</span> 학력</div>
-                    <div class="timeline-item">
-                        <div class="timeline-date">2021.03 - 2026.02</div>
-                        <div class="timeline-content">
-                            <h4>대전대학교 (예시)</h4>
-                            <div class="sub-title">컴퓨터공학과 / 학사</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <div class="section-title"><span class="icon">💼</span> 경력 / 활동</div>
+                    <div class="section-title">경력 / 활동</div>
                     <div class="timeline-item">
                         <div class="timeline-date">2024.07 - 2024.08</div>
                         <div class="timeline-content">
@@ -323,7 +326,7 @@
                 </div>
 
                 <div class="section">
-                    <div class="section-title"><span class="icon">📂</span> 주요 프로젝트</div>
+                    <div class="section-title">주요 프로젝트</div>
                     <div class="timeline-item">
                         <div class="timeline-date">2025.01 - 2025.02</div>
                         <div class="timeline-content">
@@ -348,9 +351,8 @@
                     </div>
                 </div>
 
-                <!-- 자격증 (날짜 삭제) -->
                 <div class="section">
-                    <div class="section-title"><span class="icon">📜</span> 자격증</div>
+                    <div class="section-title">자격증</div>
                     <div class="cert-item">
                         <h4>정보처리기사 (예시)</h4>
                     </div>
@@ -408,7 +410,6 @@
         }
 
         function updateQuote(value) {
-            // 줄바꿈을 <br>로 변환하고, 기존 따옴표 디자인을 유지하기 위해 innerHTML 사용
             const formattedValue = value.replace(/\n/g, '<br>');
             const quoteBox = document.getElementById('quote-display');
             quoteBox.innerHTML = formattedValue;
