@@ -32,16 +32,16 @@
             font-family: 'Pretendard', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
             color: var(--text-main);
             margin: 0;
-            padding: 40px 20px;
+            padding: 20px; /* 상하 여백 축소 */
             display: flex;
             justify-content: center;
-            font-size: 18px;
-            line-height: 1.6;
+            font-size: 16px;
+            line-height: 1.5;
         }
 
         .container {
             width: 100%;
-            max-width: 1000px;
+            max-width: 1400px; /* 가로를 넓게 활용 */
         }
 
         /* ==================== 상단 헤더 ==================== */
@@ -49,118 +49,114 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 40px;
+            margin-bottom: 20px; /* 하단 여백 축소 */
             border-bottom: 1px solid #d1d9e6;
-            padding-bottom: 30px;
+            padding-bottom: 15px;
         }
 
         .header-left .sub-title {
             color: var(--accent-blue);
-            font-size: 0.9em;
+            font-size: 0.85em;
             font-weight: 600;
             letter-spacing: 1px;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
         .header-left h1 {
-            font-size: 2.8em;
-            margin: 0 0 15px 0;
+            font-size: 2.2em;
+            margin: 0 0 8px 0;
             color: #0f1a26;
             letter-spacing: -1px;
         }
         .header-left p {
             color: var(--text-sub);
             margin: 0;
-            font-size: 1.05em;
+            font-size: 1em;
         }
 
         .header-right {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
         }
         .profile-img {
-            width: 80px;
-            height: 80px;
+            width: 65px;
+            height: 65px;
             background-color: #dce5f0;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 40px;
+            font-size: 30px;
             color: #889ab0;
         }
         .header-right .name-title h2 {
-            font-size: 2em;
-            margin: 0 0 5px 0;
+            font-size: 1.8em;
+            margin: 0 0 2px 0;
         }
         .header-right .name-title p {
             color: var(--text-sub);
             margin: 0;
-            font-size: 0.95em;
+            font-size: 0.9em;
         }
 
-        /* ==================== 그리드 레이아웃 ==================== */
+        /* ==================== 3단 그리드 레이아웃 ==================== */
         .main-grid {
             display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .right-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
+            grid-template-columns: 1.1fr 0.9fr 1fr; /* 3단 분할 */
+            gap: 20px;
+            align-items: start;
         }
 
         /* ==================== 카드 공통 스타일 ==================== */
         .card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 30px;
+            border-radius: 12px;
+            padding: 20px; /* 패딩 축소 */
             box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            margin-bottom: 20px;
         }
+        .card:last-child { margin-bottom: 0; }
 
         .card-title {
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-size: 1.4em;
+            gap: 10px;
+            font-size: 1.2em;
             font-weight: bold;
             margin-top: 0;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
             color: #0f1a26;
             border-bottom: 1px solid var(--border-color);
-            padding-bottom: 15px;
+            padding-bottom: 10px;
         }
         .card-title::before {
             content: '';
             display: inline-block;
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
             background-color: var(--accent-blue);
             border-radius: 4px;
         }
 
-        /* ==================== 경력/활동 카드 ==================== */
+        /* ==================== 1열: 경력/활동 타임라인 ==================== */
         .timeline {
             position: relative;
-            padding-left: 20px;
+            padding-left: 15px;
             border-left: 2px solid var(--border-color);
         }
         .timeline-item {
             position: relative;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
         .timeline-item:last-child { margin-bottom: 0; }
         
         .timeline-dot {
             position: absolute;
-            left: -27px;
-            top: 6px;
-            width: 12px;
-            height: 12px;
+            left: -21px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
             background-color: var(--card-bg);
             border: 3px solid var(--accent-blue);
             border-radius: 50%;
@@ -168,94 +164,93 @@
         
         .timeline-content {
             display: flex;
-            gap: 20px;
+            gap: 15px;
         }
         .timeline-date {
             flex-shrink: 0;
-            width: 120px;
-            font-size: 0.9em;
+            width: 110px;
+            font-size: 0.85em;
             color: var(--text-sub);
             font-weight: 500;
-            margin-top: 2px;
         }
         .timeline-text h4 {
-            margin: 0 0 5px 0;
-            font-size: 1.1em;
+            margin: 0 0 3px 0;
+            font-size: 1em;
         }
         .timeline-text p {
             margin: 0;
-            font-size: 0.95em;
+            font-size: 0.9em;
             color: var(--text-sub);
         }
 
-        /* ==================== 자격증 카드 ==================== */
+        /* ==================== 2열: 자격증 / 활동 ==================== */
         .cert-item {
             display: flex;
             align-items: flex-start;
-            gap: 15px;
+            gap: 10px;
             background-color: #fcfdfe;
-            padding: 15px;
+            padding: 12px;
             border-radius: 8px;
             border: 1px solid #f0f4f8;
+            margin-bottom: 15px;
         }
         .cert-tag {
             background-color: var(--tag-bg);
             color: var(--accent-blue);
-            padding: 4px 10px;
+            padding: 3px 8px;
             border-radius: 20px;
-            font-size: 0.85em;
+            font-size: 0.75em;
             font-weight: bold;
             flex-shrink: 0;
         }
         .cert-info h4 {
-            margin: 0 0 5px 0;
-            font-size: 1em;
+            margin: 0 0 3px 0;
+            font-size: 0.95em;
         }
         .cert-info p {
             margin: 0;
-            font-size: 0.9em;
+            font-size: 0.85em;
             color: var(--text-sub);
         }
         .cert-date {
             margin-left: auto;
-            font-size: 0.9em;
+            font-size: 0.85em;
             color: var(--text-sub);
+            white-space: nowrap;
         }
 
-        /* ==================== 활동/기타 카드 ==================== */
         .list-item {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
-            font-size: 0.95em;
+            gap: 8px;
+            margin-bottom: 10px;
+            font-size: 0.9em;
             color: var(--text-sub);
         }
         .list-item::before {
             content: '•';
             color: var(--accent-blue);
             font-weight: bold;
-            font-size: 1.2em;
+            font-size: 1.1em;
         }
 
-        /* ==================== 강점 카드 (하단 전체) ==================== */
-        .strength-card {
-            margin-top: 30px;
-            background: linear-gradient(135deg, #f0f4f8, #ffffff);
-        }
-        
+        /* ==================== 3열: 강점 ==================== */
         .strength-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
         .strength-item {
             display: flex;
-            gap: 15px;
+            gap: 12px;
+            background-color: #f8f9fc;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
         }
         .strength-number {
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             background-color: #a3b8cc;
             color: white;
             border-radius: 50%;
@@ -263,63 +258,33 @@
             justify-content: center;
             align-items: center;
             font-weight: bold;
-            font-size: 1.1em;
+            font-size: 1em;
             flex-shrink: 0;
         }
         .strength-content h4 {
-            margin: 0 0 8px 0;
-            font-size: 1.1em;
+            margin: 0 0 5px 0;
+            font-size: 1em;
         }
         .strength-content p {
             margin: 0;
-            font-size: 0.95em;
+            font-size: 0.85em;
             color: var(--text-sub);
             word-break: keep-all;
         }
 
-        /* ==================== 인터랙션 버튼 (카드 5 대응) ==================== */
-        .interaction-section {
-            text-align: center;
-            margin-top: 40px;
-            margin-bottom: 20px;
+        /* 반응형 (화면이 작아질 때) */
+        @media (max-width: 1024px) {
+            .main-grid { grid-template-columns: 1fr 1fr; }
+            .main-grid > div:nth-child(3) { grid-column: span 2; } /* 3번째 열은 가로로 꽉 차게 */
+            .strength-grid { flex-direction: row; }
+            .strength-item { flex: 1; }
         }
-        .action-btn {
-            background-color: var(--accent-blue);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.1em;
-            font-weight: bold;
-            border-radius: 30px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(74, 107, 140, 0.3);
-        }
-        /* 접근성: 키보드 포커스 */
-        .action-btn:focus-visible {
-            outline: 3px solid #000;
-            outline-offset: 4px;
-        }
-        .extra-info {
-            display: none;
-            margin-top: 20px;
-            padding: 25px;
-            background-color: #ffffff;
-            border: 2px dashed var(--accent-blue);
-            border-radius: 12px;
-            font-size: 1.05em;
-        }
-        .extra-info.show {
-            display: block;
-        }
-
-        /* 반응형 */
         @media (max-width: 768px) {
-            .header { flex-direction: column; align-items: flex-start; gap: 20px; }
             .main-grid { grid-template-columns: 1fr; }
-            .strength-grid { grid-template-columns: 1fr; }
-            .timeline-content { flex-direction: column; gap: 5px; }
-            .cert-item { flex-direction: column; gap: 10px; }
-            .cert-date { margin-left: 0; }
+            .main-grid > div:nth-child(3) { grid-column: span 1; }
+            .strength-grid { flex-direction: column; }
+            .header { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .timeline-content { flex-direction: column; gap: 2px; }
         }
     </style>
 </head>
@@ -331,7 +296,7 @@
             <div class="header-left">
                 <div class="sub-title">ABOUT ME —</div>
                 <h1>나를 소개하는 한 페이지</h1>
-                <p>지금까지의 경험을 바탕으로,<br>더 나은 내일을 만들어가고 있는 사람입니다.</p>
+                <p>지금까지의 경험을 바탕으로, 더 나은 내일을 만들어가고 있는 사람입니다.</p>
             </div>
             <div class="header-right">
                 <div class="profile-img">👤</div>
@@ -342,9 +307,10 @@
             </div>
         </header>
 
-        <!-- 2단 그리드 레이아웃 -->
+        <!-- 3단 그리드 레이아웃 -->
         <div class="main-grid">
-            <!-- 좌측: 경력 / 활동 -->
+            
+            <!-- 1열: 경력 / 활동 -->
             <div class="card">
                 <h3 class="card-title">경력 / 활동</h3>
                 <div class="timeline">
@@ -381,8 +347,8 @@
                 </div>
             </div>
 
-            <!-- 우측: 자격증 + 활동/기타 -->
-            <div class="right-grid">
+            <!-- 2열: 자격증 + 활동/기타 -->
+            <div>
                 <div class="card">
                     <h3 class="card-title">자격증</h3>
                     <div class="cert-item">
@@ -403,62 +369,37 @@
                     <div class="list-item">취미 : 게임, 영화 감상 등</div>
                 </div>
             </div>
-        </div>
 
-        <!-- 하단: 강점 (카드 2 조건 충족: 상황-행동-결과 구조 반영) -->
-        <div class="card strength-card">
-            <h3 class="card-title">강점</h3>
-            <div class="strength-grid">
-                <div class="strength-item">
-                    <div class="strength-number">01</div>
-                    <div class="strength-content">
-                        <h4>꾸준함</h4>
-                        <p>목표를 세우면 끝까지 해내는 꾸준한 실행력. (팀 프로젝트 중도 이탈 위기를 극복하고 완수한 경험)</p>
+            <!-- 3열: 강점 -->
+            <div class="card">
+                <h3 class="card-title">강점</h3>
+                <div class="strength-grid">
+                    <div class="strength-item">
+                        <div class="strength-number">01</div>
+                        <div class="strength-content">
+                            <h4>꾸준함</h4>
+                            <p>목표를 세우면 끝까지 해내는 꾸준한 실행력. (팀 프로젝트 중도 이탈 위기를 극복하고 완수한 경험)</p>
+                        </div>
                     </div>
-                </div>
-                <div class="strength-item">
-                    <div class="strength-number">02</div>
-                    <div class="strength-content">
-                        <h4>문제해결력</h4>
-                        <p>문제를 분석하고 다양한 방법으로 해결하는 능력. (인턴십 중 코드 오류를 리팩토링하여 해결)</p>
+                    <div class="strength-item">
+                        <div class="strength-number">02</div>
+                        <div class="strength-content">
+                            <h4>문제해결력</h4>
+                            <p>문제를 분석하고 다양한 방법으로 해결하는 능력. (인턴십 중 코드 오류를 리팩토링하여 해결)</p>
+                        </div>
                     </div>
-                </div>
-                <div class="strength-item">
-                    <div class="strength-number">03</div>
-                    <div class="strength-content">
-                        <h4>협업 능력</h4>
-                        <p>함께하는 과정에서 더 좋은 결과를 만들어내는 협업 마인드. (팀 내 원활한 소통과 역할 분담)</p>
+                    <div class="strength-item">
+                        <div class="strength-number">03</div>
+                        <div class="strength-content">
+                            <h4>협업 능력</h4>
+                            <p>함께하는 과정에서 더 좋은 결과를 만들어내는 협업 마인드. (팀 내 원활한 소통과 역할 분담)</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- 카드 5 조건 충족: 키보드/마우스 동작 확인 -->
-        <div class="interaction-section">
-            <button class="action-btn" onclick="toggleInteraction()" aria-expanded="false" aria-controls="more-info">
-                상세 소개 보기
-            </button>
-            <div id="more-info" class="extra-info">
-                <h4 style="margin-top:0; color:#4a6b8c;">저는 이런 사람입니다.</h4>
-                <p>새로운 기술을 배우는 것을 즐기며, 문제가 생겼을 때 포기하지 않고 끝까지 해결책을 찾아냅니다. 함께 일하면 팀에 긍정적인 에너지를 주는 사람이 되겠습니다.</p>
-            </div>
         </div>
-
     </main>
 
-    <script>
-        // 카드 5: 마우스 클릭 및 키보드(Enter/Space) 동작 로직
-        function toggleInteraction() {
-            const extraInfo = document.getElementById('more-info');
-            const btn = document.querySelector('.action-btn');
-            
-            extraInfo.classList.toggle('show');
-            
-            const isExpanded = extraInfo.classList.contains('show');
-            btn.setAttribute('aria-expanded', isExpanded);
-            
-            btn.innerText = isExpanded ? "상세 소개 닫기" : "상세 소개 보기";
-        }
-    </script>
 </body>
 </html>
