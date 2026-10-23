@@ -7,13 +7,13 @@
     <style>
         /* 색상 변수 설정 */
         :root {
-            --bg-color: #f8f9fc;
+            --bg-color: #dfe3e8;      
             --text-main: #1a2530;
             --text-sub: #5a6b7c;
             --accent-blue: #4a6b8c;
             --accent-light: #e2eaf3;
-            --card-bg: #ffffff;
-            --border-color: #e5e9f0;
+            --card-bg: #ffffff;       
+            --border-color: #d1d9e6;  
             --tag-bg: #f0f4f8;
         }
 
@@ -28,7 +28,7 @@
         * { box-sizing: border-box; }
 
         body {
-            background-color: var(--bg-color);
+            background-color: var(--bg-color); 
             font-family: 'Pretendard', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
             color: var(--text-main);
             margin: 0;
@@ -54,7 +54,7 @@
             justify-content: space-between;
             align-items: flex-end;
             margin-bottom: 20px; 
-            border-bottom: 1px solid #d1d9e6;
+            border-bottom: 1px solid #b0b8c4; 
             padding-bottom: 15px;
         }
 
@@ -89,10 +89,15 @@
             font-size: 30px;
             color: #889ab0;
         }
+        
+        /* [수정] 글자 간격을 늘려 고급스럽게 표현 */
         .header-right .name-title h2 {
             font-size: 1.8em;
             margin: 0 0 2px 0;
+            letter-spacing: 4px; /* 글자 사이 간격을 넓힘 (값을 조절해보세요) */
+            font-weight: 700;
         }
+        
         .header-right .name-title p {
             color: var(--text-sub);
             margin: 0;
@@ -113,7 +118,7 @@
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 25px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08); 
             display: flex;
             flex-direction: column;
         }
@@ -125,7 +130,7 @@
             font-size: 1.2em;
             font-weight: bold;
             margin-top: 0;
-            margin-bottom: 25px; /* 제목과 내용 사이 여백 통일 */
+            margin-bottom: 25px; 
             color: #0f1a26;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 12px;
@@ -139,10 +144,10 @@
             border-radius: 4px;
         }
 
-        /* ==================== 공통 리스트 아이템 스타일 (정렬 완벽 통일) ==================== */
+        /* ==================== 공통 리스트 아이템 스타일 ==================== */
         .item-row {
             display: flex;
-            align-items: flex-start; /* 상단 정렬을 기준으로 함 */
+            align-items: flex-start; 
             gap: 12px;
             margin-bottom: 18px;
         }
@@ -150,7 +155,6 @@
             margin-bottom: 0;
         }
 
-        /* 모든 동그라미 기호 통일 */
         .dot-icon {
             width: 8px;
             height: 8px;
@@ -158,22 +162,25 @@
             border: 2px solid var(--accent-blue); 
             border-radius: 50%;
             flex-shrink: 0;
-            margin-top: 6px; /* 글자 첫 줄과 수평을 맞추기 위한 마진 */
+            margin-top: 6px; 
         }
 
-        /* ==================== 1열: 경험 (선 삭제) ==================== */
+        /* ==================== 1열: 경험 ==================== */
         .timeline-content {
             display: flex;
-            gap: 15px;
+            gap: 12px; 
             width: 100%;
         }
         .timeline-date {
             flex-shrink: 0;
-            width: 110px;
+            width: 85px; 
             font-size: 0.85em;
             color: var(--text-sub);
             font-weight: 500;
-            margin-top: 1px; /* 텍스트 정렬 미세 조정 */
+            margin-top: 1px; 
+        }
+        .timeline-text {
+            flex-grow: 1;
         }
         .timeline-text h4 {
             margin: 0 0 3px 0;
@@ -196,7 +203,6 @@
         .cert-card { flex: 0 0 auto; } 
         .activity-card { flex: 1; } 
 
-        /* 자격증 아이템 */
         .cert-item {
             display: flex;
             align-items: center;
@@ -217,11 +223,10 @@
             color: var(--text-main);
         }
 
-        /* 활동 텍스트 */
         .list-item-text {
             font-size: 0.95em;
             color: var(--text-sub);
-            margin-top: 1px; /* 텍스트 정렬 미세 조정 */
+            margin-top: 1px; 
         }
 
         /* ==================== 3열: 강점 ==================== */
@@ -235,7 +240,7 @@
             display: flex;
             align-items: flex-start;
             gap: 12px;
-            background-color: #f8f9fc;
+            background-color: #f8f9fa; 
             padding: 15px;
             border-radius: 8px;
             border: 1px solid var(--border-color);
@@ -281,7 +286,8 @@
             <div class="header-right">
                 <div class="profile-img">👤</div>
                 <div class="name-title">
-                    <h2>전 창 권</h2>
+                    <!-- [수정] 띄어쓰기 없이 '전창권'으로 작성 -->
+                    <h2>전창권</h2>
                     <p>꾸준히 성장하는, 더 나은 내일을 만드는 사람</p>
                 </div>
             </div>
@@ -293,7 +299,6 @@
             <!-- 1열: 경험 -->
             <div class="card">
                 <h3 class="card-title">경험</h3>
-                <!-- 선 삭제, 리스트 구조 통일 -->
                 <div class="item-row">
                     <div class="dot-icon"></div>
                     <div class="timeline-content">
@@ -304,26 +309,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="item-row">
-                    <div class="dot-icon"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2023.03 — 2024.02</div>
-                        <div class="timeline-text">
-                            <h4>대학생 프로젝트 팀</h4>
-                            <p>웹 애플리케이션 기획 및 개발 참여</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="item-row">
-                    <div class="dot-icon"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">2021.03 — 2022.02</div>
-                        <div class="timeline-text">
-                            <h4>학과 활동 / 동아리</h4>
-                            <p>팀 프로젝트 및 다양한 경험을 통한 협업 능력 향상</p>
-                        </div>
-                    </div>
-                </div> -->
             </div>
 
             <!-- 2열: 자격증 + 활동 -->
@@ -340,20 +325,20 @@
                     <h3 class="card-title">활동</h3>
                     <div class="item-row">
                         <div class="dot-icon"></div>
-                        <div class="list-item-text">대외활동 / 공모전 참여 (예시)</div>
+                        <div class="list-item-text">K-water 대학생 서포터즈 활동</div>
                     </div>
                     <div class="item-row">
                         <div class="dot-icon"></div>
-                        <div class="list-item-text">독서 및 자기계발</div>
+                        <div class="list-item-text">교내 UCC대회 참가</div>
                     </div>
-                    <div class="item-row">
+                    <!-- <div class="item-row">
                         <div class="dot-icon"></div>
                         <div class="list-item-text">운동 / 건강관리</div>
                     </div>
                     <div class="item-row">
                         <div class="dot-icon"></div>
                         <div class="list-item-text">취미 : 게임, 영화 감상 등</div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
@@ -364,22 +349,22 @@
                     <div class="strength-item">
                         <div class="dot-icon"></div>
                         <div class="strength-content">
-                            <h4>꾸준함</h4>
-                            <p>목표를 세우면 끝까지 해내는 꾸준한 실행력. (팀 프로젝트 중도 이탈 위기를 극복하고 완수한 경험)</p>
+                            <h4>성실함</h4>
+                            <p>2년 가까이 매주 지역 아동센터에 교육봉사를 했습니다.</p>
                         </div>
                     </div>
                     <div class="strength-item">
                         <div class="dot-icon"></div>
                         <div class="strength-content">
                             <h4>문제해결력</h4>
-                            <p>문제를 분석하고 다양한 방법으로 해결하는 능력. (인턴십 중 코드 오류를 리팩토링하여 해결)</p>
+                            <p>UCC대회에서 편집을 전적으로 맡아서 했으며 적절한 배경음악과 필요한 이미지 리소스를 찾는게 편집의 주요 과제였습니다. 노력끝에 만족스러운 영상물을 만들 수 있었고 대회 수상하였습니다.</p>
                         </div>
                     </div>
                     <div class="strength-item">
                         <div class="dot-icon"></div>
                         <div class="strength-content">
-                            <h4>협업 능력</h4>
-                            <p>함께하는 과정에서 더 좋은 결과를 만들어내는 협업 마인드. (팀 내 원활한 소통과 역할 분담)</p>
+                            <h4>협동 능력</h4>
+                            <p>약 1년 간의 K-water 서포터즈 활동을 하면서 팀원들과 힘을 합쳐 SNS포스팅, 오프라인 행사참여, 홍보영상 제작등을 하였고 그 결과 베스트 온라인팀으로 선정되었습니다.</p>
                         </div>
                     </div>
                 </div>
