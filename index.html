@@ -3,17 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>C G - 이력서</title>
+    <title>C G - 나를 소개합니다</title>
     <style>
-        /* CSS 변수 (관리자 모드에서 색상 변경 가능) */
+        /* 색상 변수 설정 */
         :root {
-            --bg-color: #f0f2f5;
-            --paper-color: #ffffff;
-            --text-main: #333333;
-            --text-sub: #666666;
-            --line-color: #e0e0e0;
-            --accent-color: #5c7cfa; 
-            --font-size-base: 14px;
+            --bg-color: #f8f9fc;
+            --text-main: #1a2530;
+            --text-sub: #5a6b7c;
+            --accent-blue: #4a6b8c;
+            --accent-light: #e2eaf3;
+            --card-bg: #ffffff;
+            --border-color: #e5e9f0;
+            --tag-bg: #f0f4f8;
+        }
+
+        /* 접근성: 모션 감소 설정 존중 */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+                animation: none !important;
+            }
         }
 
         * { box-sizing: border-box; }
@@ -21,421 +30,435 @@
         body {
             background-color: var(--bg-color);
             font-family: 'Pretendard', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px;
             display: flex;
             justify-content: center;
-            padding: 40px 20px;
-            margin: 0;
-            color: var(--text-main);
-            font-size: var(--font-size-base);
+            font-size: 18px;
             line-height: 1.6;
         }
 
-        .resume-paper {
-            background-color: var(--paper-color);
+        .container {
             width: 100%;
-            max-width: 900px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            border-radius: 4px;
-            padding: 50px;
-            position: relative;
-        }
-
-        /* 2단 레이아웃 (좌측 1, 우측 2.2 비율) */
-        .layout-grid {
-            display: grid;
-            grid-template-columns: 1fr 2.2fr;
-            gap: 50px;
-        }
-
-        /* 공통 섹션 타이틀 (아이콘 없음) */
-        .section-title {
-            font-size: 1.1em;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 15px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--line-color);
+            max-width: 1000px;
         }
 
         /* ==================== 상단 헤더 ==================== */
         .header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
+            align-items: center;
             margin-bottom: 40px;
+            border-bottom: 1px solid #d1d9e6;
             padding-bottom: 30px;
-            border-bottom: 2px solid var(--text-main);
         }
 
-        .header-left { display: flex; gap: 25px; align-items: center; }
-        
+        .header-left .sub-title {
+            color: var(--accent-blue);
+            font-size: 0.9em;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        .header-left h1 {
+            font-size: 2.8em;
+            margin: 0 0 15px 0;
+            color: #0f1a26;
+            letter-spacing: -1px;
+        }
+        .header-left p {
+            color: var(--text-sub);
+            margin: 0;
+            font-size: 1.05em;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
         .profile-img {
-            width: 110px;
-            height: 110px;
-            background-color: #e9ecef;
+            width: 80px;
+            height: 80px;
+            background-color: #dce5f0;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 60px;
-            color: #adb5bd;
+            font-size: 40px;
+            color: #889ab0;
         }
-
-        .name-title h1 {
-            font-size: 2.5em;
+        .header-right .name-title h2 {
+            font-size: 2em;
             margin: 0 0 5px 0;
-            letter-spacing: 2px;
-            color: var(--text-main);
         }
-        
-        .name-title p {
-            margin: 0 0 10px 0;
+        .header-right .name-title p {
             color: var(--text-sub);
-            font-weight: 500;
+            margin: 0;
+            font-size: 0.95em;
         }
 
-        /* 전화번호 + 학력 정보 통합 */
-        .contact-info {
+        /* ==================== 그리드 레이아웃 ==================== */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .right-grid {
             display: flex;
-            gap: 15px;
-            font-size: 0.95em;
-            color: var(--text-main);
-            align-items: center;
-        }
-        .contact-info span { display: flex; align-items: center; gap: 5px; }
-        .divider { color: #ccc; } /* 전화번호와 학력 사이 구분선 */
-
-        .header-right {
-            text-align: right;
-            color: var(--text-sub);
-            font-size: 0.9em;
-            font-style: italic;
+            flex-direction: column;
+            gap: 30px;
         }
 
-        /* ==================== 좌측 컬럼 (장점, 한마디) ==================== */
-        .left-col .section { margin-bottom: 35px; }
-        
-        /* 장점 블록(태그) 스타일 */
-        .tags { display: flex; flex-wrap: wrap; gap: 8px; }
-        .tag {
-            background-color: #f1f3f5;
-            color: var(--text-main);
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 0.9em;
-            font-weight: 500;
-            border: 1px solid #dee2e6;
+        /* ==================== 카드 공통 스타일 ==================== */
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
         }
 
-        /* 관심사 리스트 */
-        .list-item {
-            font-size: 0.95em;
-            color: var(--text-sub);
-            margin-bottom: 10px;
+        .card-title {
             display: flex;
-            gap: 8px;
             align-items: center;
+            gap: 12px;
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 25px;
+            color: #0f1a26;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+        .card-title::before {
+            content: '';
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background-color: var(--accent-blue);
+            border-radius: 4px;
         }
 
-        /* 한마디 */
-        .quote-box {
-            background-color: #f8f9fa;
-            padding: 25px 20px;
-            font-style: italic;
-            color: var(--text-sub);
-            font-size: 0.95em;
-            text-align: center;
-            border-radius: 8px;
+        /* ==================== 경력/활동 카드 ==================== */
+        .timeline {
             position: relative;
+            padding-left: 20px;
+            border-left: 2px solid var(--border-color);
         }
-        .quote-box::before { content: '“'; font-size: 3em; position: absolute; top: -5px; left: 10px; color: #dee2e6; }
-        .quote-box::after { content: '”'; font-size: 3em; position: absolute; bottom: -25px; right: 10px; color: #dee2e6; }
-
-        /* ==================== 우측 컬럼 (경력, 프로젝트, 자격증) ==================== */
-        .right-col .section { margin-bottom: 35px; }
-
         .timeline-item {
-            display: flex;
-            margin-bottom: 20px;
+            position: relative;
+            margin-bottom: 30px;
+        }
+        .timeline-item:last-child { margin-bottom: 0; }
+        
+        .timeline-dot {
+            position: absolute;
+            left: -27px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            background-color: var(--card-bg);
+            border: 3px solid var(--accent-blue);
+            border-radius: 50%;
         }
         
+        .timeline-content {
+            display: flex;
+            gap: 20px;
+        }
         .timeline-date {
-            width: 110px;
             flex-shrink: 0;
-            font-size: 0.85em;
+            width: 120px;
+            font-size: 0.9em;
             color: var(--text-sub);
             font-weight: 500;
             margin-top: 2px;
         }
-
-        .timeline-content h4 {
+        .timeline-text h4 {
             margin: 0 0 5px 0;
-            font-size: 1.05em;
-            color: var(--text-main);
+            font-size: 1.1em;
         }
-        .timeline-content .sub-title {
-            font-size: 0.9em;
-            color: var(--accent-color);
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-        .timeline-content ul {
+        .timeline-text p {
             margin: 0;
-            padding-left: 18px;
+            font-size: 0.95em;
+            color: var(--text-sub);
+        }
+
+        /* ==================== 자격증 카드 ==================== */
+        .cert-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            background-color: #fcfdfe;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #f0f4f8;
+        }
+        .cert-tag {
+            background-color: var(--tag-bg);
+            color: var(--accent-blue);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .cert-info h4 {
+            margin: 0 0 5px 0;
+            font-size: 1em;
+        }
+        .cert-info p {
+            margin: 0;
             font-size: 0.9em;
             color: var(--text-sub);
         }
-        .timeline-content li { margin-bottom: 3px; }
+        .cert-date {
+            margin-left: auto;
+            font-size: 0.9em;
+            color: var(--text-sub);
+        }
 
-        /* 자격증 */
-        .cert-item {
+        /* ==================== 활동/기타 카드 ==================== */
+        .list-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             margin-bottom: 12px;
-            display: flex;
-            align-items: center;
+            font-size: 0.95em;
+            color: var(--text-sub);
         }
-        .cert-item h4 {
-            margin: 0;
-            font-size: 1em;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .cert-item h4::before {
-            content: "•";
-            color: var(--accent-color);
+        .list-item::before {
+            content: '•';
+            color: var(--accent-blue);
             font-weight: bold;
+            font-size: 1.2em;
         }
 
-        /* ==================== 관리자 패널 ==================== */
-        .admin-toggle {
-            position: absolute; bottom: 15px; right: 15px;
-            width: 20px; height: 20px; cursor: pointer; color: #eee; text-align: center; line-height: 20px;
+        /* ==================== 강점 카드 (하단 전체) ==================== */
+        .strength-card {
+            margin-top: 30px;
+            background: linear-gradient(135deg, #f0f4f8, #ffffff);
         }
-        .admin-toggle:hover { color: #999; }
+        
+        .strength-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+        }
+        .strength-item {
+            display: flex;
+            gap: 15px;
+        }
+        .strength-number {
+            width: 40px;
+            height: 40px;
+            background-color: #a3b8cc;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.1em;
+            flex-shrink: 0;
+        }
+        .strength-content h4 {
+            margin: 0 0 8px 0;
+            font-size: 1.1em;
+        }
+        .strength-content p {
+            margin: 0;
+            font-size: 0.95em;
+            color: var(--text-sub);
+            word-break: keep-all;
+        }
 
-        .admin-panel {
-            display: none; position: fixed; top: 0; right: 0; width: 350px; height: 100vh;
-            background-color: #2c3e50; color: white; padding: 30px;
-            box-shadow: -5px 0 20px rgba(0,0,0,0.3); overflow-y: auto; z-index: 1000;
+        /* ==================== 인터랙션 버튼 (카드 5 대응) ==================== */
+        .interaction-section {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 20px;
         }
-        .admin-panel h2 { border-bottom: 1px solid #4a627a; padding-bottom: 10px; margin-top: 0; }
-        .admin-group { margin-bottom: 15px; }
-        .admin-group label { display: block; margin-bottom: 5px; font-size: 0.85em; color: #bdc3c7; }
-        .admin-group input[type="color"], .admin-group input[type="range"], .admin-group textarea {
-            width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #4a627a; background-color: #34495e; color: white;
+        .action-btn {
+            background-color: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(74, 107, 140, 0.3);
         }
-        .close-btn { background-color: #e74c3c; color: white; border: none; padding: 10px; width: 100%; border-radius: 4px; cursor: pointer; margin-top: 10px; font-weight: bold; }
+        /* 접근성: 키보드 포커스 */
+        .action-btn:focus-visible {
+            outline: 3px solid #000;
+            outline-offset: 4px;
+        }
+        .extra-info {
+            display: none;
+            margin-top: 20px;
+            padding: 25px;
+            background-color: #ffffff;
+            border: 2px dashed var(--accent-blue);
+            border-radius: 12px;
+            font-size: 1.05em;
+        }
+        .extra-info.show {
+            display: block;
+        }
 
-        /* 반응형 (모바일) */
+        /* 반응형 */
         @media (max-width: 768px) {
-            .layout-grid { grid-template-columns: 1fr; }
-            .header { flex-direction: column; gap: 20px; }
-            .header-right { text-align: left; }
-            .timeline-item { flex-direction: column; }
-            .timeline-date { margin-bottom: 5px; }
-            .contact-info { flex-wrap: wrap; gap: 10px; }
-            .divider { display: none; } /* 모바일에서는 구분선 숨김 */
+            .header { flex-direction: column; align-items: flex-start; gap: 20px; }
+            .main-grid { grid-template-columns: 1fr; }
+            .strength-grid { grid-template-columns: 1fr; }
+            .timeline-content { flex-direction: column; gap: 5px; }
+            .cert-item { flex-direction: column; gap: 10px; }
+            .cert-date { margin-left: 0; }
         }
     </style>
 </head>
 <body>
 
-    <div class="resume-paper">
-        <!-- ==================== 헤더 ==================== -->
-        <div class="header">
+    <main class="container">
+        <!-- 상단 헤더 -->
+        <header class="header">
             <div class="header-left">
-                <div class="profile-img">👤</div>
-                <div class="name-title">
-                    <h1>C G</h1> 
-                    <p>꾸준히 성장하는, 더 나은 내일을 만드는 사람</p>
-                    
-                    <!-- 전화번호와 학력 통합 -->
-                    <div class="contact-info">
-                        <span>📞 010-1234-5678</span>
-                        <span class="divider">|</span>
-                        <span>🎓 대전대학교 컴퓨터공학과 (학사)</span>
-                    </div>
-                </div>
+                <div class="sub-title">ABOUT ME —</div>
+                <h1>나를 소개하는 한 페이지</h1>
+                <p>지금까지의 경험을 바탕으로,<br>더 나은 내일을 만들어가고 있는 사람입니다.</p>
             </div>
             <div class="header-right">
-                Small Steps,<br>Big Changes
+                <div class="profile-img">👤</div>
+                <div class="name-title">
+                    <h2>C G</h2>
+                    <p>꾸준히 성장하는, 더 나은 내일을 만드는 사람</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- 2단 그리드 레이아웃 -->
+        <div class="main-grid">
+            <!-- 좌측: 경력 / 활동 -->
+            <div class="card">
+                <h3 class="card-title">경력 / 활동</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">2024.07 — 2024.08</div>
+                            <div class="timeline-text">
+                                <h4>IT 관련 인턴십 (예시)</h4>
+                                <p>웹 서비스 개발 보조 및 테스트</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">2023.03 — 2024.02</div>
+                            <div class="timeline-text">
+                                <h4>대학생 프로젝트 팀</h4>
+                                <p>웹 애플리케이션 기획 및 개발 참여</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-date">2021.03 — 2022.02</div>
+                            <div class="timeline-text">
+                                <h4>학과 활동 / 동아리</h4>
+                                <p>팀 프로젝트 및 다양한 경험을 통한 협업 능력 향상</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 우측: 자격증 + 활동/기타 -->
+            <div class="right-grid">
+                <div class="card">
+                    <h3 class="card-title">자격증</h3>
+                    <div class="cert-item">
+                        <span class="cert-tag">IT/기술</span>
+                        <div class="cert-info">
+                            <h4>정보처리기사 (예시)</h4>
+                            <p>컴퓨터 활용 능력 및 전반적인 IT 지식 습득</p>
+                        </div>
+                        <span class="cert-date">2025.06</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">활동/기타</h3>
+                    <div class="list-item">대외활동 / 공모전 참여 (예시)</div>
+                    <div class="list-item">독서 및 자기계발</div>
+                    <div class="list-item">운동 / 건강관리</div>
+                    <div class="list-item">취미 : 게임, 영화 감상 등</div>
+                </div>
             </div>
         </div>
 
-        <!-- ==================== 2단 본문 ==================== -->
-        <div class="layout-grid">
-            
-            <!-- === 좌측 컬럼 === -->
-            <div class="left-col">
-                
-                <!-- 장점 (아이콘 없음, 블럭 형태) -->
-                <div class="section">
-                    <div class="section-title">장점</div>
-                    <div class="tags">
-                        <span class="tag">꾸준함</span>
-                        <span class="tag">문제해결능력</span>
-                        <span class="tag">협업과 소통</span>
-                        <span class="tag">도전정신</span>
-                        <span class="tag">성장 지향성</span>
+        <!-- 하단: 강점 (카드 2 조건 충족: 상황-행동-결과 구조 반영) -->
+        <div class="card strength-card">
+            <h3 class="card-title">강점</h3>
+            <div class="strength-grid">
+                <div class="strength-item">
+                    <div class="strength-number">01</div>
+                    <div class="strength-content">
+                        <h4>꾸준함</h4>
+                        <p>목표를 세우면 끝까지 해내는 꾸준한 실행력. (팀 프로젝트 중도 이탈 위기를 극복하고 완수한 경험)</p>
                     </div>
                 </div>
-
-                <!-- 관심사 (아이콘 없음) -->
-                <div class="section">
-                    <div class="section-title">관심사</div>
-                    <div class="list-item">🎮 게임 (테라리아, Melvor Idle 2)</div>
-                    <div class="list-item">📚 독서</div>
-                    <div class="list-item">✈️ 여행 (국내 론도트립)</div>
-                    <div class="list-item">📈 경제 / 투자</div>
-                </div>
-
-                <!-- 한마디 -->
-                <div class="section">
-                    <div class="section-title">한마디</div>
-                    <div class="quote-box" id="quote-display">
-                        지금까지의 경험을 바탕으로<br>더 나은 내일을 만들기 위해 꾸준히 노력하겠습니다.
+                <div class="strength-item">
+                    <div class="strength-number">02</div>
+                    <div class="strength-content">
+                        <h4>문제해결력</h4>
+                        <p>문제를 분석하고 다양한 방법으로 해결하는 능력. (인턴십 중 코드 오류를 리팩토링하여 해결)</p>
                     </div>
                 </div>
-            </div>
-
-            <!-- === 우측 컬럼 === -->
-            <div class="right-col">
-                <div class="section">
-                    <div class="section-title">경력 / 활동</div>
-                    <div class="timeline-item">
-                        <div class="timeline-date">2024.07 - 2024.08</div>
-                        <div class="timeline-content">
-                            <h4>IT 관련 인턴십 (예시 회사)</h4>
-                            <ul>
-                                <li>웹 서비스 개발 보조 및 테스트</li>
-                                <li>문서 작업 및 원활한 협업 경험</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-date">2023.03 - 2024.02</div>
-                        <div class="timeline-content">
-                            <h4>대학생 프로젝트 팀</h4>
-                            <ul>
-                                <li>웹 어플리케이션 기획 및 개발 경험</li>
-                                <li>팀 내 역할 분담 및 일정 관리</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <div class="section-title">주요 프로젝트</div>
-                    <div class="timeline-item">
-                        <div class="timeline-date">2025.01 - 2025.02</div>
-                        <div class="timeline-content">
-                            <h4>개인 포트폴리오 웹사이트</h4>
-                            <ul>
-                                <li>React를 활용한 반응형 웹사이트 제작</li>
-                                <li>자신의 소개, 프로젝트, 연락처 등을 깔끔하게 구성</li>
-                                <li>Git을 통한 버전 관리 및 협업</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-date">2024.11 - 2024.12</div>
-                        <div class="timeline-content">
-                            <h4>간단한 할 일 관리 프로그램</h4>
-                            <ul>
-                                <li>Python 기반의 CLI 프로그램 개발</li>
-                                <li>일정 추가/수정/삭제 기능 구현</li>
-                                <li>데이터 저장 및 불러오기 기능 구현</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <div class="section-title">자격증</div>
-                    <div class="cert-item">
-                        <h4>정보처리기사 (예시)</h4>
-                    </div>
-                    <div class="cert-item">
-                        <h4>컴퓨터활용능력 2급</h4>
-                    </div>
-                    <div class="cert-item">
-                        <h4>TOEIC 850 (예시)</h4>
+                <div class="strength-item">
+                    <div class="strength-number">03</div>
+                    <div class="strength-content">
+                        <h4>협업 능력</h4>
+                        <p>함께하는 과정에서 더 좋은 결과를 만들어내는 협업 마인드. (팀 내 원활한 소통과 역할 분담)</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 관리자 모드 열기 -->
-        <div class="admin-toggle" onclick="toggleAdmin()" title="관리자 모드">.</div>
-    </div>
-
-    <!-- ==================== 관리자 패널 ==================== -->
-    <div class="admin-panel" id="adminPanel">
-        <h2>⚙️ 이력서 편집기</h2>
-        <p style="font-size: 0.8em; color: #bdc3c7;">수정한 내용은 브라우저에 저장됩니다.</p>
-
-        <div class="admin-group">
-            <label>포인트 색상</label>
-            <input type="color" id="input-color" oninput="updateColor(this.value)">
-        </div>
-        <div class="admin-group">
-            <label>기본 글자 크기: <span id="font-size-label">14px</span></label>
-            <input type="range" id="input-font-size" min="12" max="20" value="14" oninput="updateFontSize(this.value)">
-        </div>
-        
-        <div class="admin-group">
-            <label>한마디(Quote) 내용 수정</label>
-            <textarea id="input-quote" oninput="updateQuote(this.value)" style="height: 80px;">지금까지의 경험을 바탕으로 더 나은 내일을 만들기 위해 꾸준히 노력하겠습니다.</textarea>
+        <!-- 카드 5 조건 충족: 키보드/마우스 동작 확인 -->
+        <div class="interaction-section">
+            <button class="action-btn" onclick="toggleInteraction()" aria-expanded="false" aria-controls="more-info">
+                상세 소개 보기
+            </button>
+            <div id="more-info" class="extra-info">
+                <h4 style="margin-top:0; color:#4a6b8c;">저는 이런 사람입니다.</h4>
+                <p>새로운 기술을 배우는 것을 즐기며, 문제가 생겼을 때 포기하지 않고 끝까지 해결책을 찾아냅니다. 함께 일하면 팀에 긍정적인 에너지를 주는 사람이 되겠습니다.</p>
+            </div>
         </div>
 
-        <button class="close-btn" onclick="toggleAdmin()">닫기</button>
-    </div>
+    </main>
 
     <script>
-        function toggleAdmin() {
-            const panel = document.getElementById('adminPanel');
-            panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
+        // 카드 5: 마우스 클릭 및 키보드(Enter/Space) 동작 로직
+        function toggleInteraction() {
+            const extraInfo = document.getElementById('more-info');
+            const btn = document.querySelector('.action-btn');
+            
+            extraInfo.classList.toggle('show');
+            
+            const isExpanded = extraInfo.classList.contains('show');
+            btn.setAttribute('aria-expanded', isExpanded);
+            
+            btn.innerText = isExpanded ? "상세 소개 닫기" : "상세 소개 보기";
         }
-
-        function updateColor(value) {
-            document.documentElement.style.setProperty('--accent-color', value);
-            localStorage.setItem('resumeColor', value);
-        }
-
-        function updateFontSize(value) {
-            document.documentElement.style.setProperty('--font-size-base', value + 'px');
-            document.getElementById('font-size-label').innerText = value + 'px';
-            localStorage.setItem('resumeFontSize', value);
-        }
-
-        function updateQuote(value) {
-            const formattedValue = value.replace(/\n/g, '<br>');
-            const quoteBox = document.getElementById('quote-display');
-            quoteBox.innerHTML = formattedValue;
-            localStorage.setItem('resumeQuote', value);
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedColor = localStorage.getItem('resumeColor');
-            if (savedColor) {
-                document.documentElement.style.setProperty('--accent-color', savedColor);
-                document.getElementById('input-color').value = savedColor;
-            }
-
-            const savedFontSize = localStorage.getItem('resumeFontSize');
-            if (savedFontSize) {
-                document.documentElement.style.setProperty('--font-size-base', savedFontSize + 'px');
-                document.getElementById('input-font-size').value = savedFontSize;
-                document.getElementById('font-size-label').innerText = savedFontSize + 'px';
-            }
-
-            const savedQuote = localStorage.getItem('resumeQuote');
-            if (savedQuote) {
-                document.getElementById('quote-display').innerHTML = savedQuote.replace(/\n/g, '<br>');
-                document.getElementById('input-quote').value = savedQuote;
-            }
-        });
     </script>
 </body>
 </html>
