@@ -32,10 +32,10 @@
             font-family: 'Pretendard', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
             color: var(--text-main);
             margin: 0;
-            padding: 30px; /* 여백 조정 */
+            padding: 30px; 
             display: flex;
             justify-content: center;
-            align-items: center; /* 세로 중앙 정렬 (꽉 차게 보이도록) */
+            align-items: center; 
             min-height: 100vh;
             font-size: 16px;
             line-height: 1.5;
@@ -52,7 +52,7 @@
         .header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-end; /* 하단 정렬 */
+            align-items: flex-end;
             margin-bottom: 20px; 
             border-bottom: 1px solid #d1d9e6;
             padding-bottom: 15px;
@@ -65,7 +65,6 @@
             letter-spacing: 1px;
             margin-bottom: 5px;
         }
-        /* 큰 제목 삭제 후 '저를 소개합니다' 스타일 */
         .header-left .intro-text {
             font-size: 1.8em;
             font-weight: bold;
@@ -103,9 +102,8 @@
         /* ==================== 3단 그리드 레이아웃 ==================== */
         .main-grid {
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr 1fr; /* 3단 분할 */
+            grid-template-columns: 1.1fr 0.9fr 1fr; 
             gap: 20px;
-            /* 하단 공백을 없애기 위해 최소 높이 설정 */
             min-height: 55vh; 
         }
 
@@ -116,7 +114,6 @@
             border-radius: 12px;
             padding: 25px; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-            height: 100%; /* 높이를 꽉 채움 */
             display: flex;
             flex-direction: column;
         }
@@ -147,7 +144,7 @@
             position: relative;
             padding-left: 15px;
             border-left: 2px solid var(--border-color);
-            flex-grow: 1; /* 남는 공간 채우기 */
+            flex-grow: 1; 
         }
         .timeline-item {
             position: relative;
@@ -195,17 +192,32 @@
             height: 100%;
         }
         
-        .cert-card { flex: 0 0 auto; } /* 자격증 카드는 내용만큼만 */
-        .activity-card { flex: 1; } /* 활동 카드는 남는 공간 채우기 */
+        .cert-card { flex: 0 0 auto; } 
+        .activity-card { flex: 1; } 
 
-        /* 수정된 자격증 아이템 스타일 */
-        .cert-simple-text {
-            font-size: 1.1em;
-            font-weight: 600;
-            color: var(--text-main);
+        /* 자격증 아이템 스타일 복구 */
+        .cert-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             padding: 10px 0;
         }
+        .cert-tag {
+            background-color: var(--tag-bg);
+            color: var(--accent-blue);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .cert-info {
+            font-size: 1em;
+            font-weight: 600;
+            color: var(--text-main);
+        }
 
+        /* 활동/기타 리스트 (기호 통일) */
         .list-item {
             display: flex;
             align-items: center;
@@ -215,10 +227,10 @@
             color: var(--text-sub);
         }
         .list-item::before {
-            content: '•';
+            content: '●'; /* 점 기호로 통일 */
             color: var(--accent-blue);
-            font-weight: bold;
-            font-size: 1.1em;
+            font-size: 0.6em;
+            margin-right: 4px;
         }
 
         /* ==================== 3열: 강점 ==================== */
@@ -236,17 +248,13 @@
             border-radius: 8px;
             border: 1px solid var(--border-color);
         }
+        /* 강점 숫자 동그라미 대신 통일된 점 기호로 변경 */
         .strength-number {
-            width: 35px;
-            height: 35px;
-            background-color: #a3b8cc;
-            color: white;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-blue);
             border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            font-size: 1em;
+            margin-top: 8px;
             flex-shrink: 0;
         }
         .strength-content h4 {
@@ -267,7 +275,6 @@
             .main-grid > div:nth-child(3) { grid-column: span 2; } 
             .strength-grid { flex-direction: row; }
             .strength-item { flex: 1; }
-            .card { height: auto; }
         }
         @media (max-width: 768px) {
             .main-grid { grid-template-columns: 1fr; }
@@ -285,7 +292,6 @@
         <header class="header">
             <div class="header-left">
                 <div class="sub-title">ABOUT ME —</div>
-                <!-- 수정된 부분: 큰 제목과 설명 삭제, 짧은 문구만 남김 -->
                 <p class="intro-text">저를 소개합니다.</p>
             </div>
             <div class="header-right">
@@ -341,8 +347,10 @@
             <div class="right-grid">
                 <div class="card cert-card">
                     <h3 class="card-title">자격증</h3>
-                    <!-- 수정된 부분: 태그, 기존 텍스트, 날짜 모두 삭제하고 해당 문구만 남김 -->
-                    <div class="cert-simple-text">사회조사분석사 2급</div>
+                    <div class="cert-item">
+                        <span class="cert-tag">통계/데이터</span>
+                        <span class="cert-info">사회조사분석사 2급</span>
+                    </div>
                 </div>
 
                 <div class="card activity-card">
@@ -359,21 +367,21 @@
                 <h3 class="card-title">강점</h3>
                 <div class="strength-grid">
                     <div class="strength-item">
-                        <div class="strength-number">01</div>
+                        <div class="strength-number"></div>
                         <div class="strength-content">
                             <h4>꾸준함</h4>
                             <p>목표를 세우면 끝까지 해내는 꾸준한 실행력. (팀 프로젝트 중도 이탈 위기를 극복하고 완수한 경험)</p>
                         </div>
                     </div>
                     <div class="strength-item">
-                        <div class="strength-number">02</div>
+                        <div class="strength-number"></div>
                         <div class="strength-content">
                             <h4>문제해결력</h4>
                             <p>문제를 분석하고 다양한 방법으로 해결하는 능력. (인턴십 중 코드 오류를 리팩토링하여 해결)</p>
                         </div>
                     </div>
                     <div class="strength-item">
-                        <div class="strength-number">03</div>
+                        <div class="strength-number"></div>
                         <div class="strength-content">
                             <h4>협업 능력</h4>
                             <p>함께하는 과정에서 더 좋은 결과를 만들어내는 협업 마인드. (팀 내 원활한 소통과 역할 분담)</p>
