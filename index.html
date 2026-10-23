@@ -152,15 +152,15 @@
         }
         .timeline-item:last-child { margin-bottom: 0; }
         
-        /* [수정] 속이 빈 동그라미로 변경 */
+        /* 속이 빈 동그라미 */
         .timeline-dot {
             position: absolute;
             left: -21px;
             top: 5px;
             width: 10px;
             height: 10px;
-            background-color: var(--card-bg); /* 배경색으로 채움 */
-            border: 2px solid var(--accent-blue); /* 테두리만 파란색 */
+            background-color: var(--card-bg); 
+            border: 2px solid var(--accent-blue); 
             border-radius: 50%;
         }
         
@@ -221,20 +221,23 @@
         /* 활동/기타 리스트 */
         .list-item {
             display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 12px;
+            align-items: center; /* 세로 중앙 정렬 */
+            gap: 10px;
+            margin-bottom: 14px;
             font-size: 0.95em;
             color: var(--text-sub);
         }
         
-        /* [수정] 유니코드 빈 동그라미(○)로 변경 */
+        /* [수정] 글자(○) 대신 CSS로 그린 빈 동그라미 사용 */
         .list-item::before {
-            content: '○'; 
-            color: var(--accent-blue);
-            font-size: 0.8em;
-            font-weight: bold;
-            margin-right: 2px;
+            content: ''; 
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: transparent;
+            border: 2px solid var(--accent-blue);
+            border-radius: 50%;
+            flex-shrink: 0;
         }
 
         /* ==================== 3열: 강점 ==================== */
@@ -253,7 +256,7 @@
             border: 1px solid var(--border-color);
         }
         
-        /* [수정] 속이 빈 동그라미로 변경 */
+        /* 속이 빈 동그라미 */
         .strength-number {
             width: 10px;
             height: 10px;
