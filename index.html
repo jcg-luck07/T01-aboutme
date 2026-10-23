@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C G - 이력서</title>
+    <style>
+        /* CSS 변수 (관리자 모드에서 색상 변경 가능) */
+        :root {
+            --bg-color: #f0f2f5;
+            --paper-color: #ffffff;
+            --text-main: #333333;
+            --text-sub: #666666;
+            --line-color: #e0e0e0;
+            --accent-color: #5c7cfa; 
+            --font-size-base: 14px;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Pretendard', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            margin: 0;
+            color: var(--text-main);
+            font-size: var(--font-size-base);
+            line-height: 1.6;
+        }
+
+        .resume-paper {
+            background-color: var(--paper-color);
+            width: 100%;
+            max-width: 900px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border-radius: 4px;
+            padding: 50px;
+            position: relative;
+        }
+
+        /* 2단 레이아웃 (좌측 1, 우측 2 비율) */
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 1fr 2.2fr;
+            gap: 50px;
+        }
+
+        /* 공통 섹션 타이틀 */
+        .section-title {
+            font-size: 1.1em;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--line-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title span.icon {
+            font-size: 1.2em;
+            color: var(--text-sub);
+        }
+
+        /* ==================== 상단 헤더 ==================== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid var(--text-main);
+        }
+
+        .header-left { display: flex; gap: 25px; align-items: center; }
+        
+        .profile-img {
+            width: 110px;
+            height: 110px;
+            background-color: #e9ecef;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 60px;
+            color: #adb5bd;
+        }
+
+        .name-title h1 {
+            font-size: 2.5em;
+            margin: 0 0 5px 0;
+            letter-spacing: 2px;
+            color: var(--text-main);
+        }
+        
+        .name-title p {
+            margin: 0 0 10px 0;
+            color: var(--text-sub);
+            font-weight: 500;
+        }
+
+        /* 이메일, 깃헙, 주소 삭제 후 전화번호만 남김 */
+        .contact-info {
+            display: flex;
+            font-size: 0.95em;
+            color: var(--text-main);
+        }
+        .contact-info span { display: flex; align-items: center; gap: 5px; }
+
+        .header-right {
+            text-align: right;
+            color: var(--text-sub);
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        /* ==================== 좌측 컬럼 (관심사, 한마디) ==================== */
+        .left-col .section { margin-bottom: 35px; }
+        
+        .list-item {
+            font-size: 0.95em;
+            color: var(--text-sub);
+            margin-bottom: 10px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        /* 이름(관심사 칸으로 이동) */
+        .interest-name {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        /* 한마디 (왼쪽 세로선 제거됨) */
+        .quote-box {
+            background-color: #f8f9fa;
+            padding: 25px 20px;
+            font-style: italic;
+            color: var(--text-sub);
+            font-size: 0.95em;
+            text-align: center;
+            border-radius: 8px;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+        .quote-box::before { content: '“'; font-size: 3em; position: absolute; top: -5px; left: 10px; color: #dee2e6; }
+        .quote-box::after { content: '”'; font-size: 3em; position: absolute; bottom: -25px; right: 10px; color: #dee2e6; }
+
+        /* ==================== 우측 컬럼 (학력, 경력, 프로젝트, 자격증) ==================== */
+        .right-col .section { margin-bottom: 35px; }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .timeline-date {
+            width: 110px;
+            flex-shrink: 0;
+            font-size: 0.85em;
+            color: var(--text-sub);
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .timeline-content h4 {
+            margin: 0 0 5px 0;
+            font-size: 1.05em;
+            color: var(--text-main);
+        }
+        .timeline-content .sub-title {
+            font-size: 0.9em;
+            color: var(--accent-color);
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        .timeline-content ul {
+            margin: 0;
+            padding-left: 18px;
+            font-size: 0.9em;
+            color: var(--text-sub);
+        }
+        .timeline-content li { margin-bottom: 3px; }
+
+        /* 자격증 (날짜 삭제됨) */
+        .cert-item {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        .cert-item h4 {
+            margin: 0;
+            font-size: 1em;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .cert-item h4::before {
+            content: "•";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        /* ==================== 관리자 패널 ==================== */
+        .admin-toggle {
+            position: absolute; bottom: 15px; right: 15px;
+            width: 20px; height: 20px; cursor: pointer; color: #eee; text-align: center; line-height: 20px;
+        }
+        .admin-toggle:hover { color: #999; }
+
+        .admin-panel {
+            display: none; position: fixed; top: 0; right: 0; width: 350px; height: 100vh;
+            background-color: #2c3e50; color: white; padding: 30px;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.3); overflow-y: auto; z-index: 1000;
+        }
+        .admin-panel h2 { border-bottom: 1px solid #4a627a; padding-bottom: 10px; margin-top: 0; }
+        .admin-group { margin-bottom: 15px; }
+        .admin-group label { display: block; margin-bottom: 5px; font-size: 0.85em; color: #bdc3c7; }
+        .admin-group input[type="color"], .admin-group input[type="range"], .admin-group textarea {
+            width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #4a627a; background-color: #34495e; color: white;
+        }
+        .close-btn { background-color: #e74c3c; color: white; border: none; padding: 10px; width: 100%; border-radius: 4px; cursor: pointer; margin-top: 10px; font-weight: bold; }
+
+        /* 반응형 (모바일) */
+        @media (max-width: 768px) {
+            .layout-grid { grid-template-columns: 1fr; }
+            .header { flex-direction: column; gap: 20px; }
+            .header-right { text-align: left; }
+            .timeline-item { flex-direction: column; }
+            .timeline-date { margin-bottom: 5px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="resume-paper">
+        <!-- ==================== 헤더 ==================== -->
+        <div class="header">
+            <div class="header-left">
+                <div class="profile-img">👤</div>
+                <div class="name-title">
+                    <!-- 이름은 아래 관심사 칸으로 이동했지만, 큰 제목이 없으면 허전하므로 간단한 슬로건 배치 -->
+                    <h1>Resume</h1> 
+                    <p>꾸준히 성장하는, 더 나은 내일을 만드는 사람</p>
+                    <div class="contact-info">
+                        <span>📞 010-1234-5678</span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                Small Steps,<br>Big Changes
+            </div>
+        </div>
+
+        <!-- ==================== 2단 본문 ==================== -->
+        <div class="layout-grid">
+            
+            <!-- === 좌측 컬럼 === -->
+            <div class="left-col">
+                <!-- 관심사 칸 (이름 포함) -->
+                <div class="section">
+                    <div class="section-title"><span class="icon">🧭</span> 관심사</div>
+                    <div class="interest-name">C G</div>
+                    <div class="list-item">🎮 게임 (테라리아, Melvor Idle 2)</div>
+                    <div class="list-item">📚 독서</div>
+                    <div class="list-item">✈️ 여행 (국내 론도트립)</div>
+                    <div class="list-item">📈 경제 / 투자</div>
+                </div>
+
+                <!-- 한마디 칸 (좌측으로 이동, 세로선 삭제) -->
+                <div class="section">
+                    <div class="section-title"><span class="icon">⭐</span> 한마디</div>
+                    <div class="quote-box" id="quote-display">
+                        지금까지의 경험을 바탕으로<br>더 나은 내일을 만들기 위해 꾸준히 노력하겠습니다.
+                    </div>
+                </div>
+            </div>
+
+            <!-- === 우측 컬럼 === -->
+            <div class="right-col">
+                <!-- 학력 (우측으로 이동, 맨 위 배치) -->
+                <div class="section">
+                    <div class="section-title"><span class="icon">🎓</span> 학력</div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2021.03 - 2026.02</div>
+                        <div class="timeline-content">
+                            <h4>대전대학교 (예시)</h4>
+                            <div class="sub-title">컴퓨터공학과 / 학사</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title"><span class="icon">💼</span> 경력 / 활동</div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2024.07 - 2024.08</div>
+                        <div class="timeline-content">
+                            <h4>IT 관련 인턴십 (예시 회사)</h4>
+                            <ul>
+                                <li>웹 서비스 개발 보조 및 테스트</li>
+                                <li>문서 작업 및 원활한 협업 경험</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2023.03 - 2024.02</div>
+                        <div class="timeline-content">
+                            <h4>대학생 프로젝트 팀</h4>
+                            <ul>
+                                <li>웹 어플리케이션 기획 및 개발 경험</li>
+                                <li>팀 내 역할 분담 및 일정 관리</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title"><span class="icon">📂</span> 주요 프로젝트</div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2025.01 - 2025.02</div>
+                        <div class="timeline-content">
+                            <h4>개인 포트폴리오 웹사이트</h4>
+                            <ul>
+                                <li>React를 활용한 반응형 웹사이트 제작</li>
+                                <li>자신의 소개, 프로젝트, 연락처 등을 깔끔하게 구성</li>
+                                <li>Git을 통한 버전 관리 및 협업</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2024.11 - 2024.12</div>
+                        <div class="timeline-content">
+                            <h4>간단한 할 일 관리 프로그램</h4>
+                            <ul>
+                                <li>Python 기반의 CLI 프로그램 개발</li>
+                                <li>일정 추가/수정/삭제 기능 구현</li>
+                                <li>데이터 저장 및 불러오기 기능 구현</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 자격증 (날짜 삭제) -->
+                <div class="section">
+                    <div class="section-title"><span class="icon">📜</span> 자격증</div>
+                    <div class="cert-item">
+                        <h4>정보처리기사 (예시)</h4>
+                    </div>
+                    <div class="cert-item">
+                        <h4>컴퓨터활용능력 2급</h4>
+                    </div>
+                    <div class="cert-item">
+                        <h4>TOEIC 850 (예시)</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 관리자 모드 열기 -->
+        <div class="admin-toggle" onclick="toggleAdmin()" title="관리자 모드">.</div>
+    </div>
+
+    <!-- ==================== 관리자 패널 ==================== -->
+    <div class="admin-panel" id="adminPanel">
+        <h2>⚙️ 이력서 편집기</h2>
+        <p style="font-size: 0.8em; color: #bdc3c7;">수정한 내용은 브라우저에 저장됩니다.</p>
+
+        <div class="admin-group">
+            <label>포인트 색상</label>
+            <input type="color" id="input-color" oninput="updateColor(this.value)">
+        </div>
+        <div class="admin-group">
+            <label>기본 글자 크기: <span id="font-size-label">14px</span></label>
+            <input type="range" id="input-font-size" min="12" max="20" value="14" oninput="updateFontSize(this.value)">
+        </div>
+        
+        <div class="admin-group">
+            <label>한마디(Quote) 내용 수정</label>
+            <textarea id="input-quote" oninput="updateQuote(this.value)" style="height: 80px;">지금까지의 경험을 바탕으로 더 나은 내일을 만들기 위해 꾸준히 노력하겠습니다.</textarea>
+        </div>
+
+        <button class="close-btn" onclick="toggleAdmin()">닫기</button>
+    </div>
+
+    <script>
+        function toggleAdmin() {
+            const panel = document.getElementById('adminPanel');
+            panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
+        }
+
+        function updateColor(value) {
+            document.documentElement.style.setProperty('--accent-color', value);
+            localStorage.setItem('resumeColor', value);
+        }
+
+        function updateFontSize(value) {
+            document.documentElement.style.setProperty('--font-size-base', value + 'px');
+            document.getElementById('font-size-label').innerText = value + 'px';
+            localStorage.setItem('resumeFontSize', value);
+        }
+
+        function updateQuote(value) {
+            // 줄바꿈을 <br>로 변환하고, 기존 따옴표 디자인을 유지하기 위해 innerHTML 사용
+            const formattedValue = value.replace(/\n/g, '<br>');
+            const quoteBox = document.getElementById('quote-display');
+            quoteBox.innerHTML = formattedValue;
+            localStorage.setItem('resumeQuote', value);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedColor = localStorage.getItem('resumeColor');
+            if (savedColor) {
+                document.documentElement.style.setProperty('--accent-color', savedColor);
+                document.getElementById('input-color').value = savedColor;
+            }
+
+            const savedFontSize = localStorage.getItem('resumeFontSize');
+            if (savedFontSize) {
+                document.documentElement.style.setProperty('--font-size-base', savedFontSize + 'px');
+                document.getElementById('input-font-size').value = savedFontSize;
+                document.getElementById('font-size-label').innerText = savedFontSize + 'px';
+            }
+
+            const savedQuote = localStorage.getItem('resumeQuote');
+            if (savedQuote) {
+                document.getElementById('quote-display').innerHTML = savedQuote.replace(/\n/g, '<br>');
+                document.getElementById('input-quote').value = savedQuote;
+            }
+        });
+    </script>
+</body>
+</html>
