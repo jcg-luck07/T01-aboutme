@@ -32,24 +32,28 @@
             font-family: 'Pretendard', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
             color: var(--text-main);
             margin: 0;
-            padding: 20px; /* 상하 여백 축소 */
+            padding: 30px; /* 여백 조정 */
             display: flex;
             justify-content: center;
+            align-items: center; /* 세로 중앙 정렬 (꽉 차게 보이도록) */
+            min-height: 100vh;
             font-size: 16px;
             line-height: 1.5;
         }
 
         .container {
             width: 100%;
-            max-width: 1400px; /* 가로를 넓게 활용 */
+            max-width: 1400px; 
+            display: flex;
+            flex-direction: column;
         }
 
         /* ==================== 상단 헤더 ==================== */
         .header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px; /* 하단 여백 축소 */
+            align-items: flex-end; /* 하단 정렬 */
+            margin-bottom: 20px; 
             border-bottom: 1px solid #d1d9e6;
             padding-bottom: 15px;
         }
@@ -61,16 +65,13 @@
             letter-spacing: 1px;
             margin-bottom: 5px;
         }
-        .header-left h1 {
-            font-size: 2.2em;
-            margin: 0 0 8px 0;
+        /* 큰 제목 삭제 후 '저를 소개합니다' 스타일 */
+        .header-left .intro-text {
+            font-size: 1.8em;
+            font-weight: bold;
             color: #0f1a26;
-            letter-spacing: -1px;
-        }
-        .header-left p {
-            color: var(--text-sub);
             margin: 0;
-            font-size: 1em;
+            letter-spacing: -1px;
         }
 
         .header-right {
@@ -104,7 +105,8 @@
             display: grid;
             grid-template-columns: 1.1fr 0.9fr 1fr; /* 3단 분할 */
             gap: 20px;
-            align-items: start;
+            /* 하단 공백을 없애기 위해 최소 높이 설정 */
+            min-height: 55vh; 
         }
 
         /* ==================== 카드 공통 스타일 ==================== */
@@ -112,11 +114,12 @@
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 20px; /* 패딩 축소 */
+            padding: 25px; 
             box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-            margin-bottom: 20px;
+            height: 100%; /* 높이를 꽉 채움 */
+            display: flex;
+            flex-direction: column;
         }
-        .card:last-child { margin-bottom: 0; }
 
         .card-title {
             display: flex;
@@ -125,7 +128,7 @@
             font-size: 1.2em;
             font-weight: bold;
             margin-top: 0;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             color: #0f1a26;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 10px;
@@ -144,10 +147,11 @@
             position: relative;
             padding-left: 15px;
             border-left: 2px solid var(--border-color);
+            flex-grow: 1; /* 남는 공간 채우기 */
         }
         .timeline-item {
             position: relative;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         .timeline-item:last-child { margin-bottom: 0; }
         
@@ -184,47 +188,30 @@
         }
 
         /* ==================== 2열: 자격증 / 활동 ==================== */
-        .cert-item {
+        .right-grid {
             display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            background-color: #fcfdfe;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #f0f4f8;
-            margin-bottom: 15px;
+            flex-direction: column;
+            gap: 20px;
+            height: 100%;
         }
-        .cert-tag {
-            background-color: var(--tag-bg);
-            color: var(--accent-blue);
-            padding: 3px 8px;
-            border-radius: 20px;
-            font-size: 0.75em;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-        .cert-info h4 {
-            margin: 0 0 3px 0;
-            font-size: 0.95em;
-        }
-        .cert-info p {
-            margin: 0;
-            font-size: 0.85em;
-            color: var(--text-sub);
-        }
-        .cert-date {
-            margin-left: auto;
-            font-size: 0.85em;
-            color: var(--text-sub);
-            white-space: nowrap;
+        
+        .cert-card { flex: 0 0 auto; } /* 자격증 카드는 내용만큼만 */
+        .activity-card { flex: 1; } /* 활동 카드는 남는 공간 채우기 */
+
+        /* 수정된 자격증 아이템 스타일 */
+        .cert-simple-text {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: var(--text-main);
+            padding: 10px 0;
         }
 
         .list-item {
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-bottom: 10px;
-            font-size: 0.9em;
+            margin-bottom: 12px;
+            font-size: 0.95em;
             color: var(--text-sub);
         }
         .list-item::before {
@@ -239,12 +226,13 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
+            flex-grow: 1;
         }
         .strength-item {
             display: flex;
             gap: 12px;
             background-color: #f8f9fc;
-            padding: 12px;
+            padding: 15px;
             border-radius: 8px;
             border: 1px solid var(--border-color);
         }
@@ -274,10 +262,12 @@
 
         /* 반응형 (화면이 작아질 때) */
         @media (max-width: 1024px) {
-            .main-grid { grid-template-columns: 1fr 1fr; }
-            .main-grid > div:nth-child(3) { grid-column: span 2; } /* 3번째 열은 가로로 꽉 차게 */
+            body { align-items: flex-start; padding: 20px; }
+            .main-grid { grid-template-columns: 1fr 1fr; min-height: auto; }
+            .main-grid > div:nth-child(3) { grid-column: span 2; } 
             .strength-grid { flex-direction: row; }
             .strength-item { flex: 1; }
+            .card { height: auto; }
         }
         @media (max-width: 768px) {
             .main-grid { grid-template-columns: 1fr; }
@@ -295,8 +285,8 @@
         <header class="header">
             <div class="header-left">
                 <div class="sub-title">ABOUT ME —</div>
-                <h1>나를 소개하는 한 페이지</h1>
-                <p>지금까지의 경험을 바탕으로, 더 나은 내일을 만들어가고 있는 사람입니다.</p>
+                <!-- 수정된 부분: 큰 제목과 설명 삭제, 짧은 문구만 남김 -->
+                <p class="intro-text">저를 소개합니다.</p>
             </div>
             <div class="header-right">
                 <div class="profile-img">👤</div>
@@ -348,20 +338,14 @@
             </div>
 
             <!-- 2열: 자격증 + 활동/기타 -->
-            <div>
-                <div class="card">
+            <div class="right-grid">
+                <div class="card cert-card">
                     <h3 class="card-title">자격증</h3>
-                    <div class="cert-item">
-                        <span class="cert-tag">IT/기술</span>
-                        <div class="cert-info">
-                            <h4>정보처리기사 (예시)</h4>
-                            <p>컴퓨터 활용 능력 및 전반적인 IT 지식 습득</p>
-                        </div>
-                        <span class="cert-date">2025.06</span>
-                    </div>
+                    <!-- 수정된 부분: 태그, 기존 텍스트, 날짜 모두 삭제하고 해당 문구만 남김 -->
+                    <div class="cert-simple-text">사회조사분석사 2급</div>
                 </div>
 
-                <div class="card">
+                <div class="card activity-card">
                     <h3 class="card-title">활동/기타</h3>
                     <div class="list-item">대외활동 / 공모전 참여 (예시)</div>
                     <div class="list-item">독서 및 자기계발</div>
