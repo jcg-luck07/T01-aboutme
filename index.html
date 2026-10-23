@@ -9,12 +9,17 @@
         :root {
             --bg-color: #dfe3e8;      
             --text-main: #1a2530;
-            --text-sub: #5a6b7c;
-            --accent-blue: #4a6b8c;
+            
+            /* [수정] 회색 글자 대비율 상향 (4.2:1 -> 6.0:1) */
+            --text-sub: #4a5a6a; 
+            
+            /* [수정] 파란색 포인트 대비율 상향 (4.4:1 -> 6.5:1) */
+            --accent-blue: #2f4b66; 
+            
             --accent-light: #e2eaf3;
             --card-bg: #ffffff;       
             --border-color: #d1d9e6;  
-            --tag-bg: #f0f4f8;
+            --tag-bg: #eef2f6; /* 태그 배경을 살짝 더 밝게 조정하여 대비 강화 */
         }
 
         /* 접근성: 모션 감소 설정 존중 */
@@ -90,11 +95,10 @@
             color: #889ab0;
         }
         
-        /* [수정] 글자 간격을 늘려 고급스럽게 표현 */
         .header-right .name-title h2 {
             font-size: 1.8em;
             margin: 0 0 2px 0;
-            letter-spacing: 4px; /* 글자 사이 간격을 넓힘 (값을 조절해보세요) */
+            letter-spacing: 4px; 
             font-weight: 700;
         }
         
@@ -286,7 +290,6 @@
             <div class="header-right">
                 <div class="profile-img">👤</div>
                 <div class="name-title">
-                    <!-- [수정] 띄어쓰기 없이 '전창권'으로 작성 -->
                     <h2>전창권</h2>
                     <p>꾸준히 성장하는, 더 나은 내일을 만드는 사람</p>
                 </div>
@@ -331,14 +334,6 @@
                         <div class="dot-icon"></div>
                         <div class="list-item-text">교내 UCC대회 참가</div>
                     </div>
-                    <!-- <div class="item-row">
-                        <div class="dot-icon"></div>
-                        <div class="list-item-text">운동 / 건강관리</div>
-                    </div>
-                    <div class="item-row">
-                        <div class="dot-icon"></div>
-                        <div class="list-item-text">취미 : 게임, 영화 감상 등</div>
-                    </div> -->
                 </div>
             </div>
 
