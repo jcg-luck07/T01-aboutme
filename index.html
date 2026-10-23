@@ -152,14 +152,15 @@
         }
         .timeline-item:last-child { margin-bottom: 0; }
         
+        /* [수정] 속이 빈 동그라미로 변경 */
         .timeline-dot {
             position: absolute;
             left: -21px;
             top: 5px;
             width: 10px;
             height: 10px;
-            background-color: var(--card-bg);
-            border: 3px solid var(--accent-blue);
+            background-color: var(--card-bg); /* 배경색으로 채움 */
+            border: 2px solid var(--accent-blue); /* 테두리만 파란색 */
             border-radius: 50%;
         }
         
@@ -195,7 +196,7 @@
         .cert-card { flex: 0 0 auto; } 
         .activity-card { flex: 1; } 
 
-        /* 자격증 아이템 스타일 복구 */
+        /* 자격증 아이템 스타일 */
         .cert-item {
             display: flex;
             align-items: center;
@@ -217,7 +218,7 @@
             color: var(--text-main);
         }
 
-        /* 활동/기타 리스트 (기호 통일) */
+        /* 활동/기타 리스트 */
         .list-item {
             display: flex;
             align-items: center;
@@ -226,11 +227,14 @@
             font-size: 0.95em;
             color: var(--text-sub);
         }
+        
+        /* [수정] 유니코드 빈 동그라미(○)로 변경 */
         .list-item::before {
-            content: '●'; /* 점 기호로 통일 */
+            content: '○'; 
             color: var(--accent-blue);
-            font-size: 0.6em;
-            margin-right: 4px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-right: 2px;
         }
 
         /* ==================== 3열: 강점 ==================== */
@@ -248,15 +252,18 @@
             border-radius: 8px;
             border: 1px solid var(--border-color);
         }
-        /* 강점 숫자 동그라미 대신 통일된 점 기호로 변경 */
+        
+        /* [수정] 속이 빈 동그라미로 변경 */
         .strength-number {
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent-blue);
+            width: 10px;
+            height: 10px;
+            background-color: transparent;
+            border: 2px solid var(--accent-blue);
             border-radius: 50%;
-            margin-top: 8px;
+            margin-top: 6px;
             flex-shrink: 0;
         }
+        
         .strength-content h4 {
             margin: 0 0 5px 0;
             font-size: 1em;
