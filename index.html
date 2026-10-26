@@ -7,19 +7,18 @@
     <style>
         /* 색상 변수 설정 */
         :root {
-            --bg-color: #dfe3e8;      
+            /* [수정] 배경색을 칙칙한 회색에서 맑고 산뜻한 파스텔 블루로 변경 */
+            --bg-color: #eef5fa;      
+            
             --text-main: #1a2530;
-            
-            /* [수정] 회색 글자 대비율 상향 (4.2:1 -> 6.0:1) */
             --text-sub: #4a5a6a; 
-            
-            /* [수정] 파란색 포인트 대비율 상향 (4.4:1 -> 6.5:1) */
             --accent-blue: #2f4b66; 
-            
             --accent-light: #e2eaf3;
+            
+            /* 카드는 순백색으로 유지하여 배경과 대비되도록 함 */
             --card-bg: #ffffff;       
             --border-color: #d1d9e6;  
-            --tag-bg: #eef2f6; /* 태그 배경을 살짝 더 밝게 조정하여 대비 강화 */
+            --tag-bg: #eef2f6; 
         }
 
         /* 접근성: 모션 감소 설정 존중 */
@@ -59,7 +58,8 @@
             justify-content: space-between;
             align-items: flex-end;
             margin-bottom: 20px; 
-            border-bottom: 1px solid #b0b8c4; 
+            /* 배경이 밝아졌으므로 구분선 색상도 부드럽게 조정 */
+            border-bottom: 1px solid #c8d6e5; 
             padding-bottom: 15px;
         }
 
@@ -113,7 +113,7 @@
             display: grid;
             grid-template-columns: 1.1fr 0.9fr 1fr; 
             gap: 20px;
-            min-height: 55vh; 
+            min-height: 50vh; 
         }
 
         /* ==================== 카드 공통 스타일 ==================== */
@@ -122,7 +122,8 @@
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 25px; 
-            box-shadow: 0 8px 24px rgba(0,0,0,0.08); 
+            /* 배경이 밝아졌으므로 카드 그림자를 아주 부드럽고 넓게 퍼지도록 조정 */
+            box-shadow: 0 10px 30px rgba(47, 75, 102, 0.05); 
             display: flex;
             flex-direction: column;
         }
@@ -233,32 +234,178 @@
             margin-top: 1px; 
         }
 
-        /* ==================== 3열: 강점 ==================== */
+        /* ==================== 3열: 강점 (아코디언 적용) ==================== */
         .strength-grid {
             display: flex;
             flex-direction: column;
             gap: 15px;
             flex-grow: 1;
         }
+        
         .strength-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
+            display: block;
+            width: 100%;
+            text-align: left;
             background-color: #f8f9fa; 
             padding: 15px;
             border-radius: 8px;
             border: 1px solid var(--border-color);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: inherit;
+            color: inherit;
+            transition: background-color 0.2s;
         }
-        
+
+        .strength-item:hover {
+            background-color: #f1f3f5;
+        }
+
+        .strength-item:focus-visible {
+            outline: 3px solid #000;
+            outline-offset: 2px;
+        }
+
+        .strength-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .strength-title-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
         .strength-content h4 {
             margin: 0 0 5px 0;
             font-size: 1em;
         }
-        .strength-content p {
+        
+        .strength-summary {
             margin: 0;
             font-size: 0.85em;
             color: var(--text-sub);
             word-break: keep-all;
+        }
+
+        .strength-detail {
+            display: none;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--border-color);
+            font-size: 0.85em;
+            color: var(--text-sub);
+            word-break: keep-all;
+        }
+
+        .strength-item.active .strength-detail {
+            display: block;
+        }
+
+        .toggle-icon {
+            font-size: 0.8em;
+            color: var(--accent-blue);
+            transition: transform 0.2s;
+        }
+        .strength-item.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        /* ==================== 하단 공개/비공개 버튼 ==================== */
+        .info-section {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .info-btn {
+            background-color: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1em;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(47, 75, 102, 0.2);
+        }
+
+        .info-btn:hover {
+            background-color: #1e3347;
+        }
+        
+        .info-btn:focus-visible {
+            outline: 3px solid #000;
+            outline-offset: 3px;
+        }
+
+        /* ==================== 모달(팝업) 스타일 ==================== */
+        .modal-overlay {
+            display: none; 
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(15, 26, 38, 0.6); /* 산뜻한 배경에 맞춰 어두운 배경 살짝 조정 */
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+        }
+
+        .modal-title {
+            margin-top: 0;
+            color: var(--accent-blue);
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .modal-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+
+        .modal-list li {
+            margin-bottom: 10px;
+            font-size: 0.95em;
+            display: flex;
+            gap: 10px;
+        }
+
+        .modal-list li::before {
+            content: '•';
+            color: var(--accent-blue);
+            font-weight: bold;
+        }
+
+        .modal-close-btn {
+            background-color: #e2eaf3;
+            color: var(--accent-blue);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+        .modal-close-btn:hover {
+            background-color: #d1d9e6;
         }
 
         /* 반응형 (화면이 작아질 때) */
@@ -266,8 +413,8 @@
             body { align-items: flex-start; padding: 20px; }
             .main-grid { grid-template-columns: 1fr 1fr; min-height: auto; }
             .main-grid > div:nth-child(3) { grid-column: span 2; } 
-            .strength-grid { flex-direction: row; }
-            .strength-item { flex: 1; }
+            .strength-grid { flex-direction: row; flex-wrap: wrap; }
+            .strength-item { flex: 1 1 30%; }
         }
         @media (max-width: 768px) {
             .main-grid { grid-template-columns: 1fr; }
@@ -307,8 +454,8 @@
                     <div class="timeline-content">
                         <div class="timeline-date">2026~<br>(진행중)</div>
                         <div class="timeline-text">
-                            <h4>직업훈련 (SKT ALEPH 아카데미)</h4>
-                            <p>네트워크/정보보안 및 AI활용 과정</p>
+                            <h4>직업훈련 (네트워크/정보보안 및 AI활용 과정)</h4>
+                            <p>SKT ALEPH 아카데미</p>
                         </div>
                     </div>
                 </div>
@@ -337,36 +484,132 @@
                 </div>
             </div>
 
-            <!-- 3열: 강점 -->
+            <!-- 3열: 강점 (클릭 시 펼쳐지는 아코디언) -->
             <div class="card">
                 <h3 class="card-title">강점</h3>
                 <div class="strength-grid">
-                    <div class="strength-item">
-                        <div class="dot-icon"></div>
-                        <div class="strength-content">
-                            <h4>성실함</h4>
-                            <p>2년 가까이 매주 지역 아동센터에서 교육봉사를 했습니다.</p>
+                    
+                    <!-- 성실함 -->
+                    <button class="strength-item" onclick="toggleStrength(this)" aria-expanded="false">
+                        <div class="strength-header">
+                            <div class="strength-title-area">
+                                <div class="dot-icon"></div>
+                                <div class="strength-content">
+                                    <h4>성실함</h4>
+                                    <p class="strength-summary">2년 가까이 매주 지역 아동센터에서 교육봉사 경험</p>
+                                </div>
+                            </div>
+                            <span class="toggle-icon">▼</span>
                         </div>
-                    </div>
-                    <div class="strength-item">
-                        <div class="dot-icon"></div>
-                        <div class="strength-content">
-                            <h4>문제해결력</h4>
-                            <p>영상제작에 흥미가 있어서 교내UCC대회 참가를 포함해서 다수의 영상물을 만든 경험이 있습니다. 적절한 배경음악과 필요한 이미지 리소스를 찾는것, 그리고 아이디어를 떠올리는게 편집의 주요 과제입니다. 노력끝에 만족스러운 결과물을 만들어 냈고 대회 수상도 하였습니다.</p>
+                        <div class="strength-detail">
+                            2년 가까이 매주 지역 아동센터에서 아이들의 학습을 돕는 교육봉사를 진행했습니다. 단순히 공부를 가르치는 것을 넘어, 아이들과 신뢰가 중요하다는 것을 느꼈고 이 경험을 통해 책임감과 인내심을 길렀습니다.
                         </div>
-                    </div>
-                    <div class="strength-item">
-                        <div class="dot-icon"></div>
-                        <div class="strength-content">
-                            <h4>협동능력</h4>
-                            <p>약 1년 간의 K-water 서포터즈 활동을 하면서 팀원들과 힘을 합쳐 SNS포스팅, 오프라인 행사참여, 홍보영상 제작등을 하였고 그 결과 베스트 온라인팀으로 선정되었습니다.</p>
+                    </button>
+
+                    <!-- 문제해결력 -->
+                    <button class="strength-item" onclick="toggleStrength(this)" aria-expanded="false">
+                        <div class="strength-header">
+                            <div class="strength-title-area">
+                                <div class="dot-icon"></div>
+                                <div class="strength-content">
+                                    <h4>문제해결력</h4>
+                                    <p class="strength-summary">교내 UCC대회 입상 및 다수 영상물 제작 경험</p>
+                                </div>
+                            </div>
+                            <span class="toggle-icon">▼</span>
                         </div>
-                    </div>
+                        <div class="strength-detail">
+                            영상제작에 흥미가 있어서 교내 UCC대회 참가를 포함해 다수의 영상물을 만든 경험이 있습니다. 적절한 배경음악과 필요한 이미지 리소스를 찾는 것, 그리고 아이디어를 떠올리는 것이 편집의 주요 과제였습니다. 수많은 시행착오 끝에 만족스러운 결과물을 만들어 냈고 대회 수상도 하였습니다.
+                        </div>
+                    </button>
+
+                    <!-- 협동능력 -->
+                    <button class="strength-item" onclick="toggleStrength(this)" aria-expanded="false">
+                        <div class="strength-header">
+                            <div class="strength-title-area">
+                                <div class="dot-icon"></div>
+                                <div class="strength-content">
+                                    <h4>협동능력</h4>
+                                    <p class="strength-summary">K-water 서포터즈 활동을 통한 팀워크 발휘</p>
+                                </div>
+                            </div>
+                            <span class="toggle-icon">▼</span>
+                        </div>
+                        <div class="strength-detail">
+                            약 1년 간의 K-water 서포터즈 활동을 하면서 팀원들과 힘을 합쳐 SNS 포스팅, 오프라인 행사 참여, 홍보영상 제작 등을 진행했습니다. 각자의 역할을 충실히 수행하며 원활하게 소통한 결과, 최종적으로 '베스트 온라인팀'으로 선정되는 성과를 거두었습니다.
+                        </div>
+                    </button>
+
                 </div>
             </div>
 
         </div>
+
+        <!-- 하단 공개/비공개 정보 버튼 -->
+        <div class="info-section">
+            <button class="info-btn" onclick="toggleModal(true)" aria-haspopup="dialog">공개/비공개 정보</button>
+        </div>
     </main>
 
+    <!-- 공개/비공개 정보 모달 -->
+    <div class="modal-overlay" id="infoModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" onclick="toggleModal(false)">
+        <!-- 모달 내부 클릭 시 닫히지 않도록 이벤트 전파 중단 -->
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h2 class="modal-title" id="modalTitle">정보 공개 범위</h2>
+            
+            <h4 style="margin-bottom: 10px; color: #0f1a26;">공개할 정보</h4>
+            <ul class="modal-list">
+                <li>이름 </li>
+                <li>경험 </li>
+                <li>자격증</li>
+            </ul>
+
+            <h4 style="margin-bottom: 10px; color: #0f1a26;">공개하지 않을 정보 (개인정보 유출때문)</h4>
+            <ul class="modal-list">
+                <li>집 주소</li>
+                <li>이메일 주소</li>
+                <li>전화번호</li>
+            </ul>
+
+            <button class="modal-close-btn" onclick="toggleModal(false)">닫기</button>
+        </div>
+    </div>
+
+    <script>
+        // 1. 강점 아코디언 토글 함수
+        function toggleStrength(button) {
+            const isActive = button.classList.contains('active');
+            
+            if (isActive) {
+                button.classList.remove('active');
+                button.setAttribute('aria-expanded', 'false');
+            } else {
+                button.classList.add('active');
+                button.setAttribute('aria-expanded', 'true');
+            }
+        }
+
+        // 2. 공개/비공개 정보 모달 토글 함수
+        function toggleModal(show) {
+            const modal = document.getElementById('infoModal');
+            if (show) {
+                modal.classList.add('active');
+                document.querySelector('.modal-close-btn').focus();
+            } else {
+                modal.classList.remove('active');
+                document.querySelector('.info-btn').focus();
+            }
+        }
+
+        // ESC 키를 누르면 모달 닫기 (접근성)
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('infoModal');
+                if (modal.classList.contains('active')) {
+                    toggleModal(false);
+                }
+            }
+        });
+    </script>
 </body>
 </html>
